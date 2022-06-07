@@ -1,0 +1,33 @@
+{% load render_table from django_tables2 %}
+{% load export_url from django_tables2 %}
+{% load bootstrap4 %}
+{% load static %}
+
+<!doctype html>
+<html>
+    <head>
+        <title>Publications</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'publications/data.css' %}">
+    </head>
+    <body>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Publications</a>
+            
+            {% if filter %}
+                <form action="" method="get" class="form-inline my-2 my-lg-0">
+                    {% bootstrap_form filter.form layout='inline' %}
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            {% endif %}
+            
+            <a class="btn btn-outline-success my-2 my-sm-0" href="{% export_url 'xlsx' %}">Download As Excel</a>
+            <a class="btn btn-outline-success my-2 my-sm-0" href="{% url 'logout' %}">Logout</a>
+        </nav>
+
+        <div>
+            {% render_table table %}
+        </div>
+        
+    </body>
+</html>
